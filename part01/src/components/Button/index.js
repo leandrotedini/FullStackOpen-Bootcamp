@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-const Button = ({ caption }) => {
+const Button = ({ onClick, caption }) => {
   return (
-    <button>{caption}</button>
+    <button onClick={onClick}>{caption}</button>
   )
 }
 
