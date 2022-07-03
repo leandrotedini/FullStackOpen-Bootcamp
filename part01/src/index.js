@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
+import Statics from './components/Statics'
 
 const App = () => {
   // save clicks of each button to its own state
@@ -35,6 +36,8 @@ const App = () => {
       <p>good: {good}</p>
       <p>neutral: {neutral}</p>
       <p>bad: {bad}</p>
+
+      <Statics good={good} neutral={neutral} bad={bad} />
     </div>
   )
 }
