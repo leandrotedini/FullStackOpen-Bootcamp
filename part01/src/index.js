@@ -52,11 +52,15 @@ const App = () => {
         </div>
       :
         <>
-          <Statics text='good' value={good} />
-          <Statics text='neutral' value={neutral} />
-          <Statics text='bad' value={bad} />
-          <Statics text='average' value={calculateAverage(good, neutral, bad)} />
-          <Statics text='positive percentage' value={calculatePositivePercentage(good, neutral, bad) } />
+          <table>
+            <tbody>
+              <Statics text='good' value={good} />
+              <Statics text='neutral' value={neutral} />
+              <Statics text='bad' value={bad} />
+              <Statics text='average' value={calculateAverage(good, neutral, bad)} />
+              <Statics text='positive percentage' value={calculatePositivePercentage(good, neutral, bad) } />
+            </tbody>
+          </table>   
         </>
       } 
     </div>
