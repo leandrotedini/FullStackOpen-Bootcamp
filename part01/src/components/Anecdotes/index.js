@@ -12,18 +12,43 @@ const anecdotes = [
 const Anecdotes = () => {
 
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
+
 
   const randomAnecdote = () => {
     const random = Math.floor(Math.random() * anecdotes.length);
     setSelected(random)
   }
 
+  const voteComent = (comentId) => {
+    let newVotes = {...votes}
+    newVotes[comentId] += 1
+
+    setVotes(newVotes)  
+  }
+
+  const calculateMostVoted = (votes) => {
+    let mostVoted = {id:0, votes:0}
+    let values = Object.values(votes);
+    for(let i=0; i< values.length; i++){
+
+      if (values[i] > mostVoted.votes) {
+        mostVoted.id = i
+        mostVoted.votes = values[i]
+      }
+    }
+
+    return mostVoted.id
+  }
 
   return (
     <div>
       {anecdotes[selected]}
       <br/>
+      <button onClick={() => voteComent(selected)}>vote</button>
       <button onClick={randomAnecdote}>next anecdote</button>
+      <h1>Anecdote with most votes</h1>
+      {anecdotes[calculateMostVoted(votes)]}
     </div>
   )
 }
