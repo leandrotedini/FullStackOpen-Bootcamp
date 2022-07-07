@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import Person from "../Person";
+import Filter from "../Filter";
+import PersonForm from "../PersonForm";
+import Persons from "../Persons";
 
 
 
@@ -10,19 +12,18 @@ const TelephoneGuide = () => {
     { name: 'Dan Abramov', number: '12-43-234345' },
     { name: 'Mary Poppendieck', number: '39-23-6423122' }
   ])
-  const [newName, setNewName] = useState('')
-  const [newNumber, setNewNumber] = useState('')
+
   const [filter, setFilter] = useState('')
 
-  const addName = (event) => {
+  const addName = (event, newName, newNumber) => {
     event.preventDefault()
 
     if (persons.some(item => item.name === newName)){
       alert(`${newName} is already added to phonebook`)
+      return false
     }else{
       setPersons([...persons, {name: newName, number: newNumber}])
-      setNewName('')
-      setNewNumber('')
+      return true
     }
   }
 
@@ -41,29 +42,9 @@ const TelephoneGuide = () => {
     <div>
       
       <h2>Phonebook</h2>
-      filter shown with <input value={filter} onChange={(event) => setFilter(event.target.value)} />
-      <h2>add a new</h2>
-      <form>
-        <div>
-          name: <input value={newName} onChange={(event) => setNewName(event.target.value)} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={(event) => setNewNumber(event.target.value)} />
-        </div>
-        <div>
-          <button type="submit" onClick={addName}>add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      <ul>
-        {personsToShow.map(person => {
-          return(
-            <li key={person.name}>
-              <Person name={person.name} number={person.number}/>
-            </li>
-          )
-          })}
-      </ul>
+      <Filter filter={filter} handler={(event) => setFilter(event.target.value)}/>
+      <PersonForm submitHandler={addName} />
+      <Persons persons={personsToShow} />
     </div>
   )
 }
