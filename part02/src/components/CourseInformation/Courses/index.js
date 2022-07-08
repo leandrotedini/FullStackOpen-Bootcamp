@@ -46,11 +46,11 @@ const courses = [
   },
 ]
 
-const CourseInformation = () =>{
+const Courses = () =>{
   return(
     courses.map( course => 
       <Course key={course.id} name={course.name} parts={course.parts}/>
     ))
 }
 
-export default CourseInformation
+export default Courses

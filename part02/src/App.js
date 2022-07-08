@@ -1,13 +1,14 @@
 import React from 'react';
 import './App.css';
-import TelephoneGuide from './components/TelephoneGuide';
-// import CourseInformation from './components/CourseInformation';
+import PhoneBook from './components/TelephoneGuide/PhoneBook';
+// import Courses from './components/CourseInformation/Courses';
 
 
 const App = () => {
 
   return (
-    <TelephoneGuide />
+    <PhoneBook />
+    // <Courses />
   )
 }
 
