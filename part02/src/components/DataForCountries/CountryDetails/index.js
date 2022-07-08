@@ -7,6 +7,7 @@ const CountryDetails = ({ country }) => {
       <h1>{country.name}</h1>
 
       <span>capital: {country.capital}</span>
+      <br/>
       <span>population: {country.population}</span>
 
       <h2>languages</h2>

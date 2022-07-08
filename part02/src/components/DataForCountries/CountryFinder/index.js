@@ -31,14 +31,18 @@ const CountryFinder = () => {
     }
   , [countryToFind])
 
+  const showCountryDetails = (countryName) => {
+    const country = countries.find( element => element.name === countryName)
+    setCountries([country])
+  }
 
   return (
     <>
       <span>find countries</span><input value={countryToFind} onChange={(event) => setCountryToFind(event.target.value)}/>
       
       {countries.length === 1
-      ? <CountryDetails country={countries[0]}/>
-      : <ListOfCountries countries={countries} /> 
+      ? <CountryDetails country={countries[0]} />
+      : <ListOfCountries countries={countries} handlerButton={showCountryDetails} /> 
       }
       
     </>
