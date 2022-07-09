@@ -5,10 +5,7 @@ const ListOfCountries = ({ countries, handlerButton }) => {
     <ul>
       {countries.map( country => {
         return(
-          <>
-            <li key={country.name}>{country.name}</li>
-            <button onClick={() => handlerButton(country.name)}>show</button>
-          </>
+          <li key={country.name}>{country.name}<button onClick={() => handlerButton(country.name)}>show</button></li>    
         )}
       )}
     </ul>

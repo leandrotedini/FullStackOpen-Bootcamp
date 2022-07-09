@@ -23,9 +23,10 @@ const CountryFinder = () => {
             }
           )  
         })
-        
+
         setCountries(countryResults)
-      })}else{
+      })
+    }else{
         setCountries([])
       }
     }
@@ -35,6 +36,7 @@ const CountryFinder = () => {
     const country = countries.find( element => element.name === countryName)
     setCountries([country])
   }
+
 
   return (
     <>
