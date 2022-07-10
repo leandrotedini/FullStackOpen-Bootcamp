@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import telephoneGuideServices from "../../services/telephoneGuideServices";
 import Filter from "../Filter";
 import PersonForm from "../PersonForm";
 import Persons from "../Persons";
@@ -11,22 +11,28 @@ const PhoneBook = () => {
   const [filter, setFilter] = useState('')
 
   useEffect(() => {
-    console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        setPersons(response.data)
-      })
+    telephoneGuideServices.getAll()
+      .then(returnedPersons => setPersons(returnedPersons))
   }, [])
 
   const addName = (event, newName, newNumber) => {
     event.preventDefault()
 
-    if (persons.some(item => item.name === newName)){
-      alert(`${newName} is already added to phonebook`)
+    const repeatedElement = persons.find( person => person.name === newName)
+
+    if (typeof(repeatedElement) !== 'undefined'){
+      if(window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)){
+        telephoneGuideServices.update(repeatedElement.id, {name: newName, number: newNumber})
+          .then( personUpdated => {
+            const personsUpdated = persons.filter(person => person.id !== repeatedElement.id)
+            setPersons([...personsUpdated, personUpdated])
+          })
+        return true
+      }    
       return false
     }else{
-      setPersons([...persons, {name: newName, number: newNumber}])
+      telephoneGuideServices.create({name: newName, number: newNumber})
+        .then(returnedPerson => setPersons([...persons,returnedPerson]))
       return true
     }
   }
@@ -48,7 +54,7 @@ const PhoneBook = () => {
       <h2>Phonebook</h2>
       <Filter filter={filter} handler={(event) => setFilter(event.target.value)}/>
       <PersonForm submitHandler={addName} />
-      <Persons persons={personsToShow} />
+      <Persons persons={personsToShow} updatePersons={setPersons}/>
     </div>
   )
 }

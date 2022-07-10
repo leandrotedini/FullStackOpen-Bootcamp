@@ -1,7 +1,17 @@
 import React from "react";
 import Person from "../Person";
+import telephoneGuideServices from "../../services/telephoneGuideServices";
 
-const Persons = ({ persons }) => {
+const Persons = ({ persons, updatePersons }) => {
+
+  const deletePerson = (personId, personName) => {
+    if (window.confirm(`Delete ${personName}?`)){
+    telephoneGuideServices.deletePerson(personId)
+      .then(
+        updatePersons(persons.filter( person => person.id !== personId ))
+      )
+    }
+  }
 
   return(
     <>
@@ -9,8 +19,9 @@ const Persons = ({ persons }) => {
         <ul>
           {persons.map(person => {
             return(
-              <li key={person.name}>
+              <li key={person.id}>
                 <Person name={person.name} number={person.number}/>
+                <button onClick={() => deletePerson(person.id, person.name)}>delete</button>
               </li>
             )
             })}
