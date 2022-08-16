@@ -48,8 +48,13 @@ const PhoneBook = () => {
         .then(returnedPerson => {
           setPersons([...persons,returnedPerson])
           showNotification(`Added ${newName}`, true)
+          return true
         })
-      return true
+        .catch(error =>{
+          showNotification(`Information of ${error.response.data.error} has already been removed from server`, false)
+          return false
+        })
+      
     }
   }
 
